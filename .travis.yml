@@ -14,10 +14,9 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 script:
   - arduino --install-library SdFat
-  - arduino --install-library ESPAsyncWebServer
-  - arduino --install-library ESPAsyncTCP
-  - arduino --install-library ESPAsyncWiFiManager
-  - arduino --install-library Ticker-esp32
+  - arduino --install-library "ESP Async WebServer"
+  - arduino --install-library "ESP AsyncTCP"
+  - arduino --install-library "ESP Async WiFi Manager"
   - arduino --install-library AsyncTCP
   - build_platform esp8266
   - build_platform esp32
