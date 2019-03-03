@@ -13,7 +13,12 @@ env:
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 install:
-  - arduino --install-library "SdFat","ESPAsyncWebServer","ESPAsyncTCP","ESPAsyncWiFiManager","ArduinoJson","Ticker-esp32","AsyncTCP"
+  - arduino --install-library SdFat
+  - arduino --install-library ESPAsyncWebServer
+  - arduino --install-library ESPAsyncTCP
+  - arduino --install-library ESPAsyncWiFiManager
+  - arduino --install-library Ticker-esp32
+  - arduino --install-library AsyncTCP
 
 script:
   # FIXME: How to tell it just to compile my one sketch?
