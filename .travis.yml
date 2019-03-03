@@ -1,34 +1,21 @@
 language: c
-
+sudo: false
+cache:
+  directories:
+    - ~/arduino_ide
+    - ~/.arduino15/packages/
+git:
+  depth: false
+  quiet: true
 env:
   global:
-    - ARDUINO_IDE_VERSION="1.8.8"
-
+     - ARDUINO_IDE_VERSION="1.8.8"
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
-
 install:
-  - mkdir -p $HOME/Arduino/libraries/
-  - cd $HOME/Arduino/libraries/
-  - git clone https://github.com/greiman/SdFat
-  - git clone https://github.com/me-no-dev/ESPAsyncWebServer
-  - git clone -o 991f855 https://github.com/me-no-dev/ESPAsyncTCP
-  - git clone -o 6734c16 https://github.com/alanswx/ESPAsyncWiFiManager
-  - ( git clone -b 5.x https://github.com/bblanchon/ArduinoJson ; cd ArduinoJson ; git reset --hard ed98ea4 )
-  - git clone https://github.com/bertmelis/Ticker-esp32 # for ESP32
-  - git clone https://github.com/me-no-dev/AsyncTCP # for ESP32
+  - arduino --install-library "SdFat","ESPAsyncWebServer","ESPAsyncTCP","ESPAsyncWiFiManager","ArduinoJson","Ticker-esp32","AsyncTCP"
 
 script:
-  - VERSION=$(git rev-parse --short HEAD)
-  - sed -i -e 's|#define SKETCH_VERSION ".*"|#define SKETCH_VERSION "'$VERSION'"|' $PWD/ESP8266WirelessPrintAsync/ESP8266WirelessPrintAsync.ino
+  # FIXME: How to tell it just to compile my one sketch?
   - build_platform esp8266
   - build_platform esp32
-
-after_success:
-  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash ./upload.sh *.bin
-
-branches:
-  except:
-    - # Do not build tags that we create when we upload to GitHub Releases
-    - /^(?i:continuous)$/
