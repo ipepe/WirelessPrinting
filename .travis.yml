@@ -7,18 +7,17 @@ cache:
 git:
   depth: false
   quiet: true
-
+env:
+  global:
+     - ARDUINO_IDE_VERSION="1.8.7"
 before_install:
-  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
-install:
+  - source $TRAVIS_BUILD_DIR/install.sh
+script:
   - arduino --install-library SdFat
   - arduino --install-library ESPAsyncWebServer
   - arduino --install-library ESPAsyncTCP
   - arduino --install-library ESPAsyncWiFiManager
   - arduino --install-library Ticker-esp32
   - arduino --install-library AsyncTCP
-
-script:
-  # FIXME: How to tell it just to compile my one sketch?
   - build_platform esp8266
   - build_platform esp32
