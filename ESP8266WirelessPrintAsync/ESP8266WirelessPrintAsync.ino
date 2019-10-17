@@ -35,7 +35,7 @@ DNSServer dns;
 
 // Configurable parameters
 #define SKETCH_VERSION "2.x-localbuild" // Gets inserted at build time by .travis.yml
-#define USE_FAST_SD                     // Use Default fast SD clock, comment if your SD is an old or slow one.
+//#define USE_FAST_SD                     // Use Default fast SD clock, comment if your SD is an old or slow one.
 #define OTA_UPDATES                     // Enable OTA firmware updates, comment if you don't want it (OTA may lead to security issues because someone may load any code on device)
 //#define OTA_PASSWORD ""               // Uncomment to protect OTA updates and assign a password (inside "")
 #define MAX_SUPPORTED_EXTRUDERS 6       // Number of supported extruder
@@ -44,7 +44,7 @@ DNSServer dns;
 #define PRINTER_RX_BUFFER_SIZE 0        // This is printer firmware 'RX_BUFFER_SIZE'. If such parameter is unknown please use 0
 #define TEMPERATURE_REPORT_INTERVAL 2   // Ask the printer for its temperatures status every 2 seconds
 #define KEEPALIVE_INTERVAL 2500         // Marlin defaults to 2 seconds, get a little of margin
-const uint32_t serialBauds[] = { 115200, 250000, 57600 };    // Marlin valid bauds (removed very low bauds; roughly ordered by popularity to speed things up)
+const uint32_t serialBauds[] = { 115200 };   // Marlin valid bauds (removed very low bauds; roughly ordered by popularity to speed things up)
 
 #define API_VERSION     "0.1"
 #define VERSION         "1.3.10"
@@ -1015,7 +1015,7 @@ void loop() {
       telnetCommand += ch;
     }
   }
-    
+
   #ifdef OTA_UPDATES
     AsyncElegantOTA.loop();
   #endif
